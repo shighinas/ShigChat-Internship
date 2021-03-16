@@ -1,0 +1,36 @@
+<div class="outerDiv" fxLayoutAlign="space-around center">
+  <div class="sec" >
+    <mat-card>
+      <mat-card-header>
+        <mat-card-subtitle><button mat-button color='warn'>Not a member? Register Here</button></mat-card-subtitle>
+        <mat-card-title>Already a member?</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="userData" (ngSubmit)="login()">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" autocomplete="off" required>
+            <mat-error *ngIf="userData.controls['username'].hasError('required')">
+              You must Have to provide a username.
+            </mat-error>
+          </mat-form-field>
+          <br>
+
+          <mat-form-field appearance="outline">
+            <mat-label>password</mat-label>
+            <input formControlName="Password" matInput [type]="hide ? 'password' : 'text'">
+            <mat-error *ngIf="userData.controls['Password'].hasError('required')">
+              Password is Required
+            </mat-error>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <br>
+          <button type="submit" mat-raised-button color="accent" [disabled]='userData.invalid'>Login</button>
+        </form>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+mat-form-field, mat-card-content button {
+  width : 100%;
+}
+
+.outerDiv {
+  height: 100vh;
+}
+.sec {
+  width: 30%;
+}
