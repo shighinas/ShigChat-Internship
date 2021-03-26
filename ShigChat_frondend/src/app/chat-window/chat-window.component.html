@@ -1,0 +1,33 @@
+<div class="container">
+    <ng-container *ngIf="!chatroom else chatMessages">
+      <div class="select-chatroom" fxLayoutAlign="space-around center">
+        <span class="select-message">Select a chatroom</span></div>
+    </ng-container>
+</div>
+
+<ng-template #chatMessages>
+  <mat-toolbar class="topbar">
+    <span>{{chatroom}}</span>
+    <span class="example-spacer"></span>
+    <button mat-raised-button color="warn" (click)="blockToggle()">{{block ? 'UnBlock' : 'Block'}}
+      <mat-icon>{{block ? 'remove_circle' : 'block'}}</mat-icon>
+    </button><span class="space"></span>
+    <button mat-raised-button (click)="muteToggle()">{{mute ? 'UnMute' : 'Mute'}}
+      <mat-icon>{{mute ? 'volume_up' : 'volume_off'}}</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="chatarea">
+      <div style="min-height: 0;" id="scrolldiv">
+        <div *ngFor="let chat of chats; let i = index" class="chat"  [class.notify]="chat.type == 'notify'"
+              [class.me]="chat.user == username ">
+          <p><span *ngIf="username!=chat.user" class="username">{{chat.user}}</span>{{chat.message}}</p>
+        </div>
+      </div>
+  </div>
+  <div class="inputarea">
+    <form (submit)="addChat()">
+        <input class="textbox" name="message" [(ngModel)]="message" type="text">
+        <button type="submit" class="sendbutton">Send</button>
+    </form>
+  </div>
+</ng-template>

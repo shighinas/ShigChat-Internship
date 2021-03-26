@@ -1,0 +1,13 @@
+.example-container {
+  min-width: 100%;
+  height: 90vh;
+}
+
+.drawer {
+  min-width: 25%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+

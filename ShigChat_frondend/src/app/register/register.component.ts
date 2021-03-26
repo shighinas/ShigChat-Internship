@@ -25,10 +25,11 @@ export class RegisterComponent implements OnInit {
     this.userservice.regUser(this.loginData.value)
     .subscribe( (res)=> {
       console.log(res.toString());
-      this.userservice.success("Successfully registered.");
+      this.userservice.success("Successfully registered. Please Login to Continue...");
     }, (err)=>{
       console.log(err.error);
       this.userservice.error(err.error);
+      this.loginData.reset();
     } );
   }
 

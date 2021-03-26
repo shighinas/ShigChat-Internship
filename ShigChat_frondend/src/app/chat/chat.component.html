@@ -1,0 +1,27 @@
+<app-header></app-header>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened fxLayout="column" fxFlex="25%" fxHide.lt-sm class="drawer" >
+    <mat-toolbar><small>Your Contacts</small></mat-toolbar>
+      <mat-list *ngFor="let friend of friends">
+        <mat-list-item fxLayoutAlign="start center">
+          <!-- <a [routerLink]="['/chat', chatroom._id]">{{chatroom.username}}</a> -->
+          <a [routerLink]="['/chat', friend.name]">{{friend.name}}</a>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+
+      <mat-toolbar><small>Other users You may Know</small></mat-toolbar>
+      <mat-list *ngFor="let chatroom of allusers">
+            <mat-list-item *ngIf="chatroom.username != currUser">
+              {{chatroom.username}}<span class="example-spacer"></span>
+              <button mat-stroked-button color="primary" (click)="addContact(chatroom.username)">Add to contacts</button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+      </mat-list>
+  </mat-drawer>
+  <mat-drawer-content fxFlex.gt-sm="75%" fxFlex="100%">
+      <app-chat-window></app-chat-window>
+  </mat-drawer-content>
+</mat-drawer-container>
+

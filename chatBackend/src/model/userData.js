@@ -4,7 +4,8 @@ const schema = mongoose.Schema;
 const userSchema = new schema({
     username : String,
     Email : {type: String, unique:true},
-    Password : String
+    Password : String,
+    friends:[{ name: String, isMuted:{type:Boolean, default:false}, isBlocked:{type:Boolean, default:false} }]
 });
 
 var userdata = mongoose.model("userdata", userSchema);
