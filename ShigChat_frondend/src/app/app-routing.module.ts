@@ -6,8 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  {path: "", component: RegisterComponent},
-  {path:"login", component:LoginComponent},
+  {path: "reg", component: RegisterComponent},
+  {path:"", component:LoginComponent},
   {path:"chat", children: [{path:'',component:ChatComponent},
                 {path:':chatname',component:ChatComponent},
                 ]

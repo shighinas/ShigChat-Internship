@@ -1,10 +1,7 @@
-<div class="outerDiv" fxLayoutAlign="space-around center">
+<div class="outerDiv" fxLayoutAlign="end start">
   <div class="sec" >
     <mat-card>
-      <mat-card-header>
-        <mat-card-subtitle><button mat-button color='warn'>Not a member? Register Here</button></mat-card-subtitle>
-        <mat-card-title>Already a member?</mat-card-title>
-      </mat-card-header>
+      <mat-toolbar color="primary">LOGIN</mat-toolbar><br>
       <mat-card-content>
         <form [formGroup]="userData" (ngSubmit)="login()">
           <mat-form-field appearance="outline">
@@ -29,6 +26,7 @@
           <br>
           <button type="submit" mat-raised-button color="accent" [disabled]='userData.invalid'>Login</button>
         </form>
+        <button mat-button color='warn' [routerLink]= "['/reg']">Not a member? Register Here</button>
       </mat-card-content>
 
     </mat-card>

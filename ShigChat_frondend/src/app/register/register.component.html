@@ -1,9 +1,8 @@
-<div class="outerDiv" fxLayoutAlign="space-around center">
+<div class="outerDiv" fxLayoutAlign="end start">
   <div class="sec" >
+
     <mat-card>
-      <mat-card-header>
-        <mat-card-title><button mat-button color='warn' [routerLink]= "['/login']">Already a member?</button></mat-card-title>
-      </mat-card-header>
+        <mat-toolbar color="primary">SIGN UP</mat-toolbar><br>
       <mat-card-content>
         <form [formGroup]="loginData" (ngSubmit)="registerUser()">
           <mat-form-field appearance="outline">
@@ -41,6 +40,7 @@
           <br>
           <button type="submit" mat-raised-button color="accent" [disabled]='loginData.invalid'>Register</button>
         </form>
+        <button mat-button color='warn' [routerLink]= "['/']">Already a member? LOGIN here</button>
       </mat-card-content>
 
     </mat-card>
