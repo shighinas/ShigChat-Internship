@@ -19,18 +19,24 @@ export class MessageService {
     });
 
     this.socket.on('message recieved', (data)=>{
+      console.log("messages" + data.messages);
       this._chats.push(data);
       this._chatssub.next([...this._chats]);
     });
 
     this.socket.on('all messages', (data)=>{
+      console.log("messages" + data);
       this._chats = [...data];
       this._chatssub.next([...this._chats]);
     });
    }
 
-  addUser(user: string) {
+  addUser(user: any) {
     this.socket.emit('new user', user);
+  }
+
+  addReceiver(receiver : any) {
+    this.socket.emit('receiver', receiver);
   }
 
   addChat(message: string) {

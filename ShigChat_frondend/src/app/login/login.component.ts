@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       console.log(res);
       sessionStorage.setItem("user", this.userData.value.username);
       sessionStorage.setItem("userid", res.userid);
-      this.msgserv.addUser(this.userData.value.username);
+      this.msgserv.addUser(sessionStorage.getItem('user'));
       this.router.navigate(["chat"]);
     }, (err)=>{
       console.log(err);

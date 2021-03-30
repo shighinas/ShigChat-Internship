@@ -22,6 +22,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     }))
 
     this.messageservice.getChats().subscribe((data: any) => {
+      console.log(data);
       this.chats = data;
       window.setTimeout(() => {
         const elem = document.getElementById('scrolldiv');
@@ -36,6 +37,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
       this.route.paramMap.subscribe(params =>{
         const chatname = params.get('chatname');
         this.messageservice.changechatroom.next(chatname);
+        this.messageservice.addReceiver(this.chatroom);
       })
     )
   }

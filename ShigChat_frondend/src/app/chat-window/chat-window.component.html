@@ -19,8 +19,8 @@
   <div class="chatarea">
       <div style="min-height: 0;" id="scrolldiv">
         <div *ngFor="let chat of chats; let i = index" class="chat"  [class.notify]="chat.type == 'notify'"
-              [class.me]="chat.user == username ">
-          <p><span *ngIf="username!=chat.user" class="username">{{chat.user}}</span>{{chat.message}}</p>
+              [class.me]="chat.sender == username ">
+          <p><span *ngIf="username!=chat.sender" class="username">{{chat.sender}}</span>{{chat.messages}}</p>
         </div>
       </div>
   </div>
