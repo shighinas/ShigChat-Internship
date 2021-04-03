@@ -40,6 +40,10 @@ export class UserService {
     return this.http.post<any>('http://localhost:2000/file', formData);
   }
 
+  blockUser(sender:string, receiver:any, value:boolean){
+    return this.http.post('http://localhost:2000/user/blockUser/'+sender, {'receiver': receiver, 'value':value});
+  }
+
   success(msg: string){
     this.snackbar.open(msg, '', {
       duration: 40000,

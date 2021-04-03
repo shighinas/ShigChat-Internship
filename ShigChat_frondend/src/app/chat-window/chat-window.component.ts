@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { ChatComponent } from '../chat/chat.component';
 import { MessageService } from '../message.service';
 import { UserService } from '../user.service';
 
@@ -20,7 +21,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   images:any;
   updatedImage:any;
   newMessage='';
-  constructor(private messageservice: MessageService, private route:ActivatedRoute, private userservice: UserService) {
+  constructor(private messageservice: MessageService, private route:ActivatedRoute, private userservice: UserService, private chat: ChatComponent) {
 
     this.subsriptions.push(this.messageservice.changechatroom.subscribe(name =>{
       this.chatroom = name;
@@ -43,6 +44,14 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
         const chatname = params.get('chatname');
         this.messageservice.changechatroom.next(chatname);
         this.messageservice.addReceiver(this.chatroom);
+
+        this.chat.friends.forEach(element => {
+          if(element.name==this.chatroom){
+            console.log('friend Details-',element)
+            this.block=element.isBlocked;
+            this.mute=element.isMuted;
+          }
+        });
       })
     )
   }
@@ -78,9 +87,19 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   blockToggle() {
-    var res=confirm('Block '+ this.chatroom +' ? Blocked contacts will no longer be able to send you messages.');
+    if(!this.block) {
+      var res=confirm('Block '+ this.chatroom +' ? Blocked contacts will no longer be able to send you messages.');
+    }else {
+      var res=confirm('UnBlock '+ this.chatroom +' ? ');
+    }
+
     if(res) {
       this.block = !this.block;
+      console.log('blocking '+ this.chatroom+ ' by '+this.chat.currUser);
+      this.userservice.blockUser(this.chat.currUser, this.chatroom, this.block)
+      .subscribe((res) => {
+        console.log('Blocked!');
+      })
     }
   }
   muteToggle() {

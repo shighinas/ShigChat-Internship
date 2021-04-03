@@ -60,13 +60,14 @@ io.on('connection', (socket) => {
     socket.on('receiver', (data)=>{
         receiver = data;
         console.log("receiver " + receiver);
-        Message.find({$or: [{$and: [{sender:user}, {receiver:receiver}]}, {$and: [{sender:receiver}, {receiver:user}]}]}).then(rec => {
+        Message.find({$or: [{$and: [{sender:user}, {receiver:receiver}]}, {$and: [{sender:receiver}, {receiver:user}]}]})
+        .then(rec => {
             if(rec) {
                 console.log(rec);
               socket.emit('all messages', rec)
             } else {
             }
-          })
+        })
     })
 
     socket.on('new user', (data) => {

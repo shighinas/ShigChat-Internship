@@ -30,10 +30,18 @@
       </div>
   </div>
   <div class="inputarea">
-    <form (submit)="addChat()">
+    <ng-container *ngIf='!block else alert'>
+      <form (submit)="addChat()">
         <input class="textbox" name="message" [(ngModel)]="message" type="text">
         <input type="file" name="image" id="input-image" (change)="selectImage($event)">
         <button type="submit" class="sendbutton">Send</button>
-    </form>
+      </form>
+    </ng-container>
+
+    <ng-template #alert>
+      <div  class="alert-warning">
+        <strong>UNBLOCK user to start messaging</strong>
+      </div>
+    </ng-template>
   </div>
 </ng-template>
