@@ -10,6 +10,7 @@
   font-size: 1.2em;
   width: 100%;
   position: fixed;
+  z-index: 100;
 }
 .chatarea {
   flex-grow: 1;
@@ -30,17 +31,17 @@
 .chatarea .chat.notify {
   justify-content: center;
 }
-.chatarea .chat.me p {
+.chatarea .chat.me .p {
   background-color: #fff;
 }
-.chatarea .chat p {
+.chatarea .chat .p {
   background-color: #BBDEFB;
   display: inline;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
 }
-.chatarea .chat.notify p {
+.chatarea .chat.notify .p {
   background-color: transparent;
   box-shadow: none;
   font-size: 0.8em;
