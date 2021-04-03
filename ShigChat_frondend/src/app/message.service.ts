@@ -39,11 +39,12 @@ export class MessageService {
     this.socket.emit('receiver', receiver);
   }
 
-  addChat(message: string) {
+  addChat(message: any) {
     this.socket.emit('new message', message);
   }
 
    getChats() {
      return this._chatssub.asObservable();
    }
+
 }

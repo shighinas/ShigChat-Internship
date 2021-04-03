@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const bodyparser = require('body-parser');
+const multer = require('multer');
+var path = require('path');
 
 
 var app = express();
@@ -17,6 +19,18 @@ app.use(cors());
 app.use(bodyparser.json());
 app.use('/user', userrouter);
 
+
+const storage = multer.diskStorage({
+    destination: (req, file, callBack) => {
+        callBack(null, 'uploads')
+    },
+    filename: (req, file, callBack) => {
+        var date=new Date().toDateString();
+        callBack(null, `${file.originalname}`)
+    }
+})
+const upload = multer({ storage: storage })
+
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
@@ -29,11 +43,12 @@ io.on('connection', (socket) => {
         // console.log(data);
         // socket.emit('message recieved', 'data');
         const newMessage = new Message({
-            messages: data,
+            messages: data.message,
+            image: data.image,
             sender: user,
             receiver: receiver
         })
-        console.log("message: " + newMessage.messages + ", sender: " + newMessage.sender +", receiver: "+ newMessage.receiver);
+        console.log("sender: " + newMessage.sender +", receiver: "+ newMessage.receiver);
         newMessage.save().then(rec => {
             if(rec) {
                 io.emit('message recieved', rec)
@@ -72,6 +87,30 @@ io.on('connection', (socket) => {
     
 })
 
+app.post('/file', upload.single('file'), (req, res, next) => {
+    console.log("file is...",req.file);
+    const file = req.file;
+    console.log('Uploading file..');
+    if (!file) {
+      const error = new Error('No File')
+      error.httpStatusCode = 400
+      return next(error)
+    }
+      res.send(file);
+})
+app.get('/uploads/:image', (req, res)=>{
+    var mime = {
+        gif: 'image/gif',
+        jpg: 'image/jpeg',
+        png: 'image/png',
+    };
+    var dir = path.join(__dirname, 'uploads');
+    // console.log("diresctory " + dir);
+    var file = path.join(dir, req.params.image);
+    var type = mime[path.extname(file).slice(1)]
+    res.set('Content-Type', 'image/*');
+    res.send(file);
+})
 
 
 server.listen(port, (err)=>{

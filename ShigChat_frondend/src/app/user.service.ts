@@ -36,6 +36,10 @@ export class UserService {
     return this.http.get('http://localhost:2000/user/allfriends/'+id);
   }
 
+  uploadImage(formData:any){
+    return this.http.post<any>('http://localhost:2000/file', formData);
+  }
+
   success(msg: string){
     this.snackbar.open(msg, '', {
       duration: 40000,

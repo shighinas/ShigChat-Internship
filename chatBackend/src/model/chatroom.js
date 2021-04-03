@@ -5,6 +5,7 @@ const chatroomSchema = new schema({
     messages: {type: String, required: true},
     receiver: String,
     sender: String,
+    image:String,
     createAt: {type: Date, default: Date.now()}
 });
 

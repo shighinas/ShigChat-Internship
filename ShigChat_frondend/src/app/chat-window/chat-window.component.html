@@ -20,13 +20,19 @@
       <div style="min-height: 0;" id="scrolldiv">
         <div *ngFor="let chat of chats; let i = index" class="chat"  [class.notify]="chat.type == 'notify'"
               [class.me]="chat.sender == username ">
-          <p><span *ngIf="username!=chat.sender" class="username">{{chat.sender}}</span>{{chat.messages}}</p>
+          <p>
+            <img src="http://localhost:2000/uploads/{{chat.image}}" *ngIf="chat.image"><br>
+            <span *ngIf="username!=chat.sender" class="username">{{chat.sender}}</span><span>{{chat.messages}}</span><br><br>
+            <span style="font-size: xx-small;color:black;" class="ml-auto d-flex">{{chat.createAt| date: format}}</span>
+          </p>
+
         </div>
       </div>
   </div>
   <div class="inputarea">
     <form (submit)="addChat()">
         <input class="textbox" name="message" [(ngModel)]="message" type="text">
+        <input type="file" name="image" id="input-image" (change)="selectImage($event)">
         <button type="submit" class="sendbutton">Send</button>
     </form>
   </div>
