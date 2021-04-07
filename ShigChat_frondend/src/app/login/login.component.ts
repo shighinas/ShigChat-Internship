@@ -10,7 +10,7 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  hide : boolean = false
+  hide : boolean = true;
   constructor(private fb: FormBuilder, private userservice: UserService, private router:Router, private msgserv:MessageService) { }
 
   ngOnInit(): void {

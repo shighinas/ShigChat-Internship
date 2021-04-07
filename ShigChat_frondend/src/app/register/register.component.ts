@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 
 @Component({
@@ -8,8 +9,8 @@ import { UserService } from '../user.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  hide : boolean = false;
-  constructor(private fb: FormBuilder, private userservice: UserService) { }
+  hide : boolean = true;
+  constructor(private fb: FormBuilder, private router:Router, private userservice: UserService) { }
 
   ngOnInit(): void {
   }
@@ -26,6 +27,7 @@ export class RegisterComponent implements OnInit {
     .subscribe( (res)=> {
       console.log(res.toString());
       this.userservice.success("Successfully registered. Please Login to Continue...");
+      this.router.navigate([""]);
     }, (err)=>{
       console.log(err.error);
       this.userservice.error(err.error);

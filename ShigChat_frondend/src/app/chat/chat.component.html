@@ -5,15 +5,16 @@
     <mat-toolbar><small>Your Contacts</small></mat-toolbar>
       <mat-list *ngFor="let friend of friends">
         <mat-list-item fxLayoutAlign="start center">
-          <!-- <a [routerLink]="['/chat', chatroom._id]">{{chatroom.username}}</a> -->
-          <a [routerLink]="['/chat', friend.name]">{{friend.name}}</a>
+          <a [routerLink]="['/chat', friend.name]">{{friend.name}}</a><span class="example-spacer"></span>
+          <!-- <button mat-raised-button *ngIf="onlineUsers.includes(friend.name)" >Online</button>
+          <button mat-raised-button *ngIf='!onlineUsers.includes(friend.name)' >Offline</button> -->
         </mat-list-item>
         <mat-divider></mat-divider>
       </mat-list>
 
       <mat-toolbar><small>Other users You may Know</small></mat-toolbar>
       <mat-list *ngFor="let chatroom of allusers">
-            <mat-list-item *ngIf="chatroom.username != currUser">
+            <mat-list-item *ngIf="(chatroom.username != currUser) && !contacts.includes(chatroom.username)">
               {{chatroom.username}}<span class="example-spacer"></span>
               <button mat-stroked-button color="primary" (click)="addContact(chatroom.username)">Add to contacts</button>
             </mat-list-item>

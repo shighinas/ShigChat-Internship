@@ -11,7 +11,9 @@ import { UserService } from '../user.service';
 export class ChatComponent implements OnInit {
   currUser: any = "";
   allusers :any[] = [];
+  onlineUsers : string[] = [];
   friends: Array<{name:string,isMuted: boolean, isBlocked: boolean}> = [];
+  contacts:string[] = [];
   constructor(private messageservice: MessageService, private userservice:UserService) { }
 
   ngOnInit(): void {
@@ -22,7 +24,14 @@ export class ChatComponent implements OnInit {
     this.userservice.allfriends(sessionStorage.getItem('userid')).subscribe((data)=>{
       this.friends = JSON.parse(JSON.stringify(data));
       console.log(this.friends);
+      this.friends.forEach((data) =>{
+        this.contacts.push(data.name);
+        console.log('contacts '+ this.contacts);
+      })
     })
+
+    // this.onlineUsers = [...this.messageservice.statusOnline];
+    // console.log("online users "+ this.onlineUsers.length );
   }
 
   addContact(user: String) {

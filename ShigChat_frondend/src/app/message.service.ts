@@ -11,6 +11,7 @@ export class MessageService {
   socket = io('http://localhost:2000', { transports : ['websocket'] });
   _chats : string[] = [];
   _chatssub : any;
+  statusOnline: string[] = [];
 
   constructor() {
     this._chatssub = new Subject<any[]>();
@@ -28,6 +29,18 @@ export class MessageService {
       console.log("messages" + data);
       this._chats = [...data];
       this._chatssub.next([...this._chats]);
+    });
+
+    this.socket.on('user connected', (data) => {
+      console.log("connected user "+ data);
+      this.statusOnline.push(data);
+      console.log(this.statusOnline);
+    });
+    this.socket.on('user disconnected', (data) => {
+      console.log("disconnected user "+ data);
+      let pos = this.statusOnline.indexOf(data);
+      this.statusOnline.splice(pos, 1);
+      console.log(this.statusOnline);
     });
    }
 

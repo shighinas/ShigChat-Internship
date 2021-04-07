@@ -78,7 +78,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
                 this.updatedImage=res.filename;
                 console.log("new message passing "+ this.message+this.updatedImage);
                 this.messageservice.addChat({message: this.message, image: this.updatedImage});
-                // this._socket.emit('sendMessage', {room: this.room, message:this.newMessage, from: this.username,to:this.toUser,image:this.updatedImage,isForwarded:false});
               },(err) => console.log(err)
      )}
      else {
@@ -103,7 +102,18 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     }
   }
   muteToggle() {
-    this.mute = !this.mute;
+    if(!this.mute) {
+      var res=confirm('Do you really want to mute '+ this.chatroom +' ? ');
+    }else {
+      var res=confirm('Unmute '+ this.chatroom +' ? ');
+    }
+    if(res) {
+      this.mute = !this.mute;
+      this.userservice.muteUser(this.chat.currUser, this.chatroom, this.mute)
+      .subscribe( (res)=>{
+        console.log("Muted/Unmuted!");
+      });
+    }
   }
 
   selectImage(event:any) {

@@ -124,6 +124,25 @@ function router(){
         })
     })
 
+    userrouter.post('/muteUser/:sender', (req, res)=>{
+        var sender = req.params.sender;
+        var receiver = req.body.receiver;
+        var value = req.body.value;
+        userdata.findOne({"username":sender})
+        .then((user) =>{
+             
+             user.friends.forEach(contact => {
+               if(contact.name == receiver){
+                contact["isMuted"] = value;              
+               }                           
+             });
+             user.save();
+           
+            console.log('Muted '+receiver+ ' by '+ sender);
+            res.status(200);
+        })
+    })
+
 
     return userrouter;
 }
