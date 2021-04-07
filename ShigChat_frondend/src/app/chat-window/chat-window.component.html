@@ -21,7 +21,7 @@
         <div *ngFor="let chat of chats; let i = index" class="chat"  [class.notify]="chat.type == 'notify'"
               [class.me]="chat.sender == username ">
           <div class="p">
-            <img src="/assets/SHICHAT.png" style="width: 400px;" *ngIf="chat.image">
+            <img src="http://localhost:2000/uploads/{{chat.image}}" style="width: 400px;" *ngIf="chat.image">
             <br>
             <!-- <span *ngIf="username!=chat.sender" class="username">{{chat.sender}}</span> -->
             <span>{{chat.messages}}</span>
